@@ -1,13 +1,15 @@
 import numpy as np
 import pandas as pd
 
+
 class naiveBayes:
     def __init__(self):
-        class_list = []
-        vocab = []
-        class_dict = {}
-        class_word_total = {}
-        priors = {}
+        self.class_list = []
+        self.vocab = []
+        self.class_dict = {}
+        self.class_word_total = {}
+        self.priors = {}
+        self.idf_dict = {}
 
     def train(self, training_df, text_col='text', class_col='class'):
         # Determine the classes
@@ -23,7 +25,7 @@ class naiveBayes:
         # Get the total number of words in each class
         self.class_word_total = {}
         for class_ in self.class_list:
-            self.class_word_total[class_] = 0
+            self.class_word_total[class_] = 1
             for text in training_df[training_df[class_col] == class_][text_col]:
                 self.class_word_total[class_] += self.num_words(text)
         # Determine priors
@@ -84,3 +86,29 @@ class naiveBayes:
         Returns the number of words in the string
         '''
         return len(text.split())
+    
+    @staticmethod
+    def accuracy(predictions, actual):
+        '''
+        :input predictions: a list of predictions
+        :input actual: a list of actual values
+        Returns the accuracy of the predictions
+        '''
+        return np.sum(predictions == actual) / len(predictions)
+
+    @staticmethod
+    def sensitivity(predictions, actual):
+        pass
+    
+    @staticmethod
+    def specificity(predictions, actual):
+        pass
+
+    @staticmethod
+    def precision(predictions, actual):
+        pass
+
+    @staticmethod
+    def f1_score(predictions, actual):
+        pass
+
