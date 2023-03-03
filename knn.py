@@ -47,13 +47,13 @@ class kNearestNeighbors:
         if vectorizer == 'tfidf' and type == 'train':
             self.create_idf_dict(df, text_col=text_col)
 
-        print(self.idf_dict)
+        #print(self.idf_dict)
 
         text_as_vector = np.zeros((len(df), len(self.vocab)))
         for i in range(len(df)):
             split_text = df.iloc[i][text_col].split()
             text_counts = Counter(split_text)
-            print(text_counts)
+            #print(text_counts)
             for j in range(len(self.vocab)):
                 if vectorizer == 'tfidf':
                     text_as_vector[i][j] = vectorize[vectorizer](idf_dict=self.idf_dict, text_counts=text_counts, word=self.vocab[j])
